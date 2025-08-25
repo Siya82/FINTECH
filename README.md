@@ -1,8 +1,8 @@
 # FINTECH
 FinTech Data Engineering Architecture
-# 📊 Financial Market & Economic Intelligence Data Warehouse  
+# Financial Market & Economic Intelligence Data Warehouse  
 
-## 📌 Overview  
+##  Overview  
 This project is a **FinTech Data Engineering pipeline** that integrates **three types of data**:  
 
 1. **Stock Market Data** (from Nasdaq Data Link API)  
@@ -15,7 +15,7 @@ This simulates what hedge funds, investment banks, and fintech startups build in
 
 ---
 
-## 🏗️ Architecture  
+## Architecture  
 
       +------------------+     +-------------------+     +--------------------+
       | Nasdaq Data Link |     | World Bank / FRED |     | NewsAPI / Reddit   |
@@ -39,36 +39,36 @@ This simulates what hedge funds, investment banks, and fintech startups build in
 
 ---
 
-## 📂 Data Warehouse Schema  
+##  Data Warehouse Schema  
 
-### 🧱 Dimension Tables  
+###  Dimension Tables  
 
 - **`dim_date`**  
   - `date_id` → surrogate key (YYYYMMDD)  
   - `full_date`, `year`, `month`, `day`, `weekday`  
-  - 📌 Used to join all fact tables on time-based trends.  
+  - Used to join all fact tables on time-based trends.  
 
 - **`dim_company`**  
   - `company_id` → surrogate key  
   - `ticker` (e.g., AAPL, TSLA, MSFT)  
   - `company_name`, `sector`, `industry`  
-  - 📌 Describes each traded company/stock.  
+  -  Describes each traded company/stock.  
 
 - **`dim_indicator`**  
   - `indicator_id` → surrogate key  
   - `indicator_name` (e.g., CPI, GDP, Interest Rate)  
   - `source` (e.g., FRED, World Bank)  
-  - 📌 Normalizes macroeconomic indicators.  
+  -  Normalizes macroeconomic indicators.  
 
 - **`dim_source`**  
   - `source_id` → surrogate key  
   - `platform_name` (Reddit, NewsAPI, Twitter)  
   - `source_url`  
-  - 📌 Describes where sentiment/news originates.  
+  -  Describes where sentiment/news originates.  
 
 ---
 
-### 📊 Fact Tables  
+###  Fact Tables  
 
 - **`fact_stock_prices`**  
   - `date_id` (FK) → links to `dim_date`  
@@ -77,13 +77,13 @@ This simulates what hedge funds, investment banks, and fintech startups build in
   - `volume` → shares traded  
   - `daily_return` → `(close - open)/open`  
   - `rolling_volatility` → stddev of returns over 30 days  
-  - 📌 Stores market performance metrics for each stock daily.  
+  -  Stores market performance metrics for each stock daily.  
 
 - **`fact_macro_indicators`**  
   - `date_id` (FK) → links to `dim_date`  
   - `indicator_id` (FK) → links to `dim_indicator`  
   - `indicator_value` (e.g., CPI % YoY, GDP growth %)  
-  - 📌 Tracks macroeconomic signals by date.  
+  -  Tracks macroeconomic signals by date.  
 
 - **`fact_news_sentiment`**  
   - `date_id` (FK) → links to `dim_date`  
@@ -92,11 +92,11 @@ This simulates what hedge funds, investment banks, and fintech startups build in
   - `sentiment_score` → numeric (-1 negative to +1 positive)  
   - `sentiment_label` → categorical (Positive/Neutral/Negative)  
   - `mention_count` → number of articles/posts  
-  - 📌 Captures financial news sentiment and its intensity per day.  
+  -  Captures financial news sentiment and its intensity per day.  
 
 ---
 
-## 🚀 Why These Fields?  
+##  Why These Fields?  
 
 - **OHLCV (Open, High, Low, Close, Volume)** → Core market structure, used for technical indicators (returns, volatility).  
 - **Daily Return & Volatility** → Show stock risk/reward patterns.  
@@ -106,7 +106,7 @@ This simulates what hedge funds, investment banks, and fintech startups build in
 
 ---
 
-## 📊 Dashboards  
+##  Dashboards  
 
 ### 1. **Market Overview**  
 - Stock price trends, sector comparisons  
@@ -124,7 +124,7 @@ This simulates what hedge funds, investment banks, and fintech startups build in
 
 ---
 
-## ⚙️ Tech Stack  
+##  Tech Stack  
 
 - **Ingestion (Batch)**: Python (`requests`, `pandas`), Airflow  
 - **Ingestion (Streaming)**: Kafka for real-time news feeds  
@@ -135,7 +135,7 @@ This simulates what hedge funds, investment banks, and fintech startups build in
 
 ---
 
-## 🎓 Skills & Certifications Demonstrated  
+##  Skills & Certifications Demonstrated  
 
 - **DP-203 (Data Engineering on Azure)** → Cloud-ready pipelines with PostgreSQL + Airflow  
 - **AZ-204 (Azure Developer)** → Deployment automation with Docker/GitHub Actions  
@@ -146,7 +146,7 @@ This simulates what hedge funds, investment banks, and fintech startups build in
 
 ---
 
-## ✅ Future Enhancements  
+##  Future Enhancements  
 
 - Add **predictive modeling** for stock returns using sentiment & macro signals.  
 - Extend **news ingestion** to include Twitter sentiment streams.  
